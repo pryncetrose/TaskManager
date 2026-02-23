@@ -13,21 +13,22 @@ namespace TaskManagementApp
             {
                 Console.WriteLine("\n1. Add Task\n2. View Tasks\n3. Search Tasks\n4. Delete Task\n5. Save Tasks\n6. Exit");
                 Console.Write("Choose an option: ");
-                string choice = Console.ReadLine();
+                string choice = Console.ReadLine() ?? string.Empty;
 
                 switch (choice)
                 {
                     case "1":
                         Console.Write("Enter Task Title: ");
-                        string title = Console.ReadLine();
+                        string title = Console.ReadLine() ?? string.Empty;
 
                         Console.Write("Enter Task Description: ");
-                        string description = Console.ReadLine();
+                        string description = Console.ReadLine() ?? string.Empty;
 
                         Console.Write("Enter Task Type (Work/Personal): ");
-                        string type = Console.ReadLine();
+                        string type = Console.ReadLine() ?? string.Empty;
 
-                        BaseTask task = type.ToLower() == "work"
+                        string normalized = type.Trim().ToLowerInvariant();
+                        BaseTask task = normalized == "work"
                             ? new WorkTask(0, title, description)
                             : new PersonalTask(0, title, description);
 
@@ -40,12 +41,12 @@ namespace TaskManagementApp
 
                     case "3":
                         Console.Write("Enter keyword to search: ");
-                        string keyword = Console.ReadLine();
+                        string keyword = Console.ReadLine() ?? string.Empty;
                         taskFunctions.SearchTasks(keyword);
                         break;
                     case "4":
                         Console.Write("Enter Task ID/Keyword to delete: ");
-                        string deleteKeyword = Console.ReadLine();
+                        string deleteKeyword = Console.ReadLine() ?? string.Empty;
                         taskFunctions.DeleteTask(deleteKeyword);
 
                         break;
@@ -61,7 +62,7 @@ namespace TaskManagementApp
                         return;
                     case "7":
                         Console.Write("Enter Task Type to filter (Work/Personal): ");
-                        string filterType = Console.ReadLine();
+                        string filterType = Console.ReadLine() ?? string.Empty;
                         taskFunctions.FilterByType(filterType);
                         break;
 
